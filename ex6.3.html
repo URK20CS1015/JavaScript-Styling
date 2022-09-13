@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Directory</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script>
+        let lsn = [];
+        let lsnn = [];
+
+        function remlast(){
+            lsn.pop();
+            lsnn.pop();
+            update();
+        }
+
+        function remfirst(){
+            lsn.shift();
+            lsnn.shift();
+            update();
+        }
+
+        function store(){
+
+            var name = document.getElementById('n1').value;
+            var num = document.getElementById('n2').value;
+
+            for(var i =0; i<num.length;i++){
+                if ((lsn[i] == name) | (lsnn[i] == num)){
+                    var temp = "Contact already exists\n" + name + " - " + num;
+                    window.alert(temp)
+                    return;
+                }
+            }
+
+            lsn.push(name);
+            lsnn.push(num);
+            update();
+
+        }
+
+        function update(){
+            var element = document.getElementById("res");
+            element.innerHTML = "";
+            var txt = "";
+            var tag = document.createElement("p");
+
+            for(var i = 0; i<lsn.length;i++){
+                txt = (i+1)+". "+lsn[i] + " - " + lsnn[i];  
+                tag.appendChild(document.createTextNode(txt));
+                tag.appendChild(document.createElement("br"));
+                element.appendChild(tag);
+                
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <br><br>
+
+    <div class="container-fluid d-flex justify-content-center">
+        <h1 class="display-4 m-2" style="color:blue"><b>Telephone Directory</b></h1>
+    </div>
+
+    <div class="container-fluid mt-3 text-center col-12 d-flex justify-content-center align-items-center">
+        <form action="" class="form-group col-12  d-flex justify-content-center">
+            <h5 style="color:blue">Name:</h5> <input id="n1" type="text" class="form-control col-2 p-2 m-2" placeholder="Enter Name" required>
+
+            <h5 style="color:blue">Mobile Number:</h5> <input id="n2" type="tel" class="form-control col-2 p-2 m-2" placeholder="Enter Phone Number" required>
+        </form>
+    </div>
+
+    <div class="container-fluid mt-3 text-center col-12 d-flex justify-content-center align-items-center">
+        <button class="btn btn-outline-primary m-2" onclick="store()">Add Contact</button>
+        <button class="btn btn-outline-danger m-2" onclick="remfirst()">Remove First</button>
+        <button class="btn btn-outline-danger m-2" onclick="remlast()">Remove Last</button>
+    </div>
+
+    <hr>
+    <div class="container-fluid mt-3 text-center col-12 d-flex justify-content-center align-items-center" id="res">
+
+    </div>
+    <hr>
+    
+</body>
+</html>
